@@ -35,6 +35,8 @@
     <mappers>
         <mapper resource="com/simon/dao/UserMapper.xml" />
         <mapper resource="com/simon/dao/GoodsMapper.xml" />
+        <mapper resource="com/simon/mapper/BlogMapper.xml"/>
+        <mapper class="com.simon.mapper.UserMapper"/>
     </mappers>
 
 </configuration>

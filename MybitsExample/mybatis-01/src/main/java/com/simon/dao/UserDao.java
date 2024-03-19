@@ -42,4 +42,13 @@ public interface UserDao {
 
     // 模糊查询
     List<User> getUserByNameLike(@Param("name") String name);
+
+
+    /*==================================================*/
+    // 分页查询
+    List<User> getUserByPage1(Map<String, Integer> map);
+
+    List<User> getUserByPage2(@Param("startIndex") int start, @Param("pageSize") int pageSize);
+
+    List<User> getUserByRowBounds();
 }

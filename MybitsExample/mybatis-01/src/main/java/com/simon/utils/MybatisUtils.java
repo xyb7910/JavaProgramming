@@ -20,7 +20,19 @@ public class MybatisUtils {
         }
     }
     //获取SqlSession连接
+    /*
     public static SqlSession getSqlSession(){
         return sqlSessionFactory.openSession();
     }
+    */
+
+    //获取SqlSession连接
+    public static SqlSession getSqlSession() {
+        return getSqlSession(true);
+    }
+    public static SqlSession getSqlSession(boolean autoCommit){
+        return sqlSessionFactory.openSession(autoCommit);
+    }
+
+
 }

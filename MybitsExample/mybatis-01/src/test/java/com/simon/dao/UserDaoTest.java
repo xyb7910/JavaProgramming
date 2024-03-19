@@ -2,6 +2,7 @@ package com.simon.dao;
 
 import com.simon.pojo.User;
 import com.simon.utils.MybatisUtils;
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
@@ -119,5 +120,53 @@ public class UserDaoTest {
             System.out.println(user);
         }
         sqlSession.close();
+    }
+
+    @Test
+    public void getUserByPage1() {
+        SqlSession sqlSession = MybatisUtils.getSqlSession();
+        UserDao userMapper = sqlSession.getMapper(UserDao.class);
+
+        int currentPage = 1;
+        int sizePage = 2;
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("startIndex", (currentPage - 1) * sizePage); // 开始索引的位置
+        map.put("pageSize", sizePage); // 每张页面显示的记录数
+
+        List<User> users = userMapper.getUserByPage1(map);
+        for (User user : users) {
+            System.out.println(user);
+        }
+        sqlSession.close();
+    }
+
+    @Test
+    public void getUserByPage2() {
+        SqlSession sqlSession = MybatisUtils.getSqlSession();
+        UserDao userMapper = sqlSession.getMapper(UserDao.class);
+
+        int startIndex = 1;
+        int pageSize = 2;
+
+        List<User> users = userMapper.getUserByPage2(startIndex, pageSize);
+        for (User user : users) {
+            System.out.println(user);
+        }
+        sqlSession.close();
+    }
+
+    @Test
+    public void getUserByRowBounds() {
+        SqlSession session = MybatisUtils.getSqlSession();
+        int  currentPage = 1;
+        int  pageSize = 2;
+        RowBounds roeBounds = new RowBounds((currentPage - 1) * pageSize, pageSize);
+        List<User> users = session.selectList("com.simon.dao.UserDao.getUserByRowBounds",
+                null,
+                roeBounds);
+        for (User user : users) {
+            System.out.println(user);
+        }
+        session.close();
     }
 }
