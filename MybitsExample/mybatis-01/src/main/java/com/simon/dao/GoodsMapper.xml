@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simon.dao.GoodsDao">
+    <resultMap id="Goods" type="goods">
+        <!--  id 为主键  -->
+        <id column="id" property="id"/>
+        <!-- column为数据库表名的列 property是对应实体类的属性名  -->
+        <result column="good_name" property="goodName"/>
+        <result column="good_price" property="goodPrice"/>
+        <result column="description" property="description"/>
+    </resultMap>
+
+<!--    <select id="getGoodsById" resultType="goods">-->
+<!--       &lt;!&ndash;select * from goods where id = #{id}-->
+<!--        解决查询出来为 null 的情况 方案 为列名指定别名，别名和java实体类中一致 &ndash;&gt;-->
+<!--        select id, good_name, good_price, description-->
+<!--        from goods where id = #{id}-->
+<!--    </select>-->
+
+    <select id="getGoodsById" resultMap="Goods">
+        select * from goods where id = #{id}
+    </select>
+</mapper>

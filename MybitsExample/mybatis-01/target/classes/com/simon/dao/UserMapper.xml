@@ -6,11 +6,11 @@
 <mapper namespace="com.simon.dao.UserDao">
     <!-- id 对应一个方法名字   -->
     <!-- resultType 为结果集  -->
-    <select id="getUserList" resultType="com.simon.pojo.User">
+    <select id="getUserList" resultType="User">
         select * from user
     </select>
 
-    <select id="getUserById" resultType="com.simon.pojo.User">
+    <select id="getUserById" resultType="user">
         select * from user where id = #{id}
     </select>
 

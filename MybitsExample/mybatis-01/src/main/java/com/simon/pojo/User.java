@@ -1,5 +1,9 @@
 package com.simon.pojo;
 
+
+import org.apache.ibatis.type.Alias;
+
+@Alias("user")
 //实体类
 public class User {
     private int id;
