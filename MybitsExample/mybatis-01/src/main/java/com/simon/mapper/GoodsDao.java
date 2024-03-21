@@ -1,4 +1,4 @@
-package com.simon.dao;
+package com.simon.mapper;
 
 import com.simon.pojo.Goods;
 

@@ -1,5 +1,6 @@
-package com.simon.dao;
+package com.simon.mapper;
 
+import com.simon.mapper.GoodsDao;
 import com.simon.pojo.Goods;
 import com.simon.utils.MybatisUtils;
 import org.apache.ibatis.session.SqlSession;

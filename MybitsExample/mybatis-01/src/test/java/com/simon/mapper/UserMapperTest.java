@@ -23,8 +23,10 @@ public class UserMapperTest {
     public void selectById() {
         SqlSession sqlSession = MybatisUtils.getSqlSession();
         UserMapper  userMapper = sqlSession.getMapper(UserMapper.class);
-        User user = userMapper.selectById(1);
+        User user = userMapper.selectById(2);
+        User user2 = userMapper.selectById(2);
         System.out.println(user);
+        System.out.println(user2);
         sqlSession.close();
     }
 

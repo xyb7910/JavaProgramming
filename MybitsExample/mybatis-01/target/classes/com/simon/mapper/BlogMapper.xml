@@ -19,16 +19,63 @@
 <!--        </if>-->
 <!--    </select>-->
 
-<!--使用where时，会进行and or 的切除操作-->
+    <!-- SQL片段的使用-->
+    <sql id="if-title-author">
+        <if test="title != null" >
+            title = #{title}
+        </if>
+        <if test="author != null">
+            and author = #{author}
+        </if>
+    </sql>
+
+    <!--使用where时，会进行and or 的切除操作-->
     <select id="queryBlogIf" parameterType="map" resultType="blog">
         select * from blog
         <where>
-            <if test="title != null" >
-                title = #{title}
+            <!-- 引用 sql 片段，如果refid 指定的不在本文件中，那么需要在前面加上 namespace -->
+            <include refid="if-title-author"></include>
+            <!-- 在这里还可以引用其他的 sql 片段 -->
+        </where>
+    </select>
+
+    <!--注意set是用逗号隔离开来的-->
+    <update id="updateBlog" parameterType="map">
+        update blog
+        <set>
+            <if test="title != null">
+                title = #{title},
             </if>
-            <if test="author != null">
-                and author = #{author}
+            <if test="author != nill">
+                author = #{author}
             </if>
+        </set>
+        where id = #{id};
+    </update>
+
+    <select id="queryBlogChoose" parameterType="map" resultType="blog">
+        select * from blog
+        <where>
+            <choose>
+                <when test="title != null">
+                    title = #{title}
+                </when>
+                <when test="author != null">
+                    and author = #{author}
+                </when>
+                <otherwise>
+                    and views = #{views}
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <select id="queryBlogForeach" parameterType="map" resultType="blog">
+        select * from blog
+        <where>
+            <foreach collection="ids" item="id" open="and (" close=")" separator="or">
+                id=#{id}
+            </foreach>
         </where>
     </select>
 </mapper>

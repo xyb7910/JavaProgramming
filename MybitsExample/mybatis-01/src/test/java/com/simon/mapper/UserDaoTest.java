@@ -1,5 +1,6 @@
-package com.simon.dao;
+package com.simon.mapper;
 
+import com.simon.mapper.UserDao;
 import com.simon.pojo.User;
 import com.simon.utils.MybatisUtils;
 import org.apache.ibatis.session.RowBounds;

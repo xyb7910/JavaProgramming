@@ -33,8 +33,8 @@
     </environments>
     <!-- 每一个 Mapper.xml 都需要在 Mybatis 核心配置文件中注册     -->
     <mappers>
-        <mapper resource="com/simon/dao/UserMapper.xml" />
-        <mapper resource="com/simon/dao/GoodsMapper.xml" />
+        <mapper resource="com/simon/mapper/UserMapper.xml" />
+        <mapper resource="com/simon/mapper/GoodsMapper.xml" />
         <mapper resource="com/simon/mapper/BlogMapper.xml"/>
         <mapper class="com.simon.mapper.UserMapper"/>
     </mappers>
