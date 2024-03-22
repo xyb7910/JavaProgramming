@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd">
+        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 <bean id="hello" class="com.simon.pojo.Hello">
     <property name="name" value="spring"/>
 </bean>
@@ -20,5 +21,43 @@
     <!--根据index参数的下标的位置-->
     <bean id="userT" class="com.simon.pojo.UserT">
         <constructor-arg index="0" value="spring"/>
+    </bean>
+
+    <bean id="addr" class="com.simon.pojo.Address">
+        <property name="address" value="陕西"/>
+    </bean>
+
+    <bean id="student" class="com.simon.pojo.Student">
+        <property name="name" value="小明"/>
+        <property name="address" ref="addr"/>
+        <property name="books">
+            <array>
+                <value>西游记</value>
+                <value>水浒传</value>
+                <value>三国演义</value>
+                <value>水浒传</value>
+            </array>
+        </property>
+        <property name="hobbies">
+            <list>
+                <value>听歌</value>
+                <value>看电影</value>
+                <value>爬山</value>
+            </list>
+        </property>
+        <property name="card">
+            <map>
+                <entry key="身份证" value="12132313"/>
+                <entry key="电话" value="342456523412"/>
+            </map>
+        </property>
+        <property name="games">
+            <set>
+                <value>LOL</value>
+                <value>BOB</value>
+                <value>COC</value>
+            </set>
+        </property>
+
     </bean>
 </beans>
