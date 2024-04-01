@@ -1,6 +1,7 @@
 package com.spring;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.Map;
@@ -37,6 +38,16 @@ public class SimonApplicationContext {
         Class beanClass = beanDefinition.getClazz();
         try {
             Object instance  = beanClass.getDeclaredConstructor().newInstance();
+
+            // 依赖注入
+            for (Field fieldDefinition : beanClass.getDeclaredFields()) {
+                if (fieldDefinition.isAnnotationPresent(Autowired.class)) {
+                    Object fieldValue = getBean(fieldDefinition.getName());
+                    fieldDefinition.setAccessible(true);
+                    fieldDefinition.set(instance, fieldValue);
+                }
+            }
+
             return instance;
         } catch (InstantiationException e){
             e.printStackTrace();
