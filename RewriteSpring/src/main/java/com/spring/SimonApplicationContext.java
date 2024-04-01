@@ -25,7 +25,7 @@ public class SimonApplicationContext {
              String beanName = entry.getKey();
              BeanDefinition beanDefinition = entry.getValue();
              if ("singleton".equals(beanDefinition.getScope())) {
-                Object bean = createBean(beanDefinition);
+                Object bean = createBean(beanName,beanDefinition);
                 singleton_beans.put(beanName, bean);
              }
 
@@ -34,7 +34,7 @@ public class SimonApplicationContext {
     }
 
 
-    public Object createBean(BeanDefinition beanDefinition) {
+    public Object createBean(String beanName, BeanDefinition beanDefinition) {
         Class beanClass = beanDefinition.getClazz();
         try {
             Object instance  = beanClass.getDeclaredConstructor().newInstance();
@@ -47,6 +47,23 @@ public class SimonApplicationContext {
                     fieldDefinition.set(instance, fieldValue);
                 }
             }
+
+            // Aware 回调
+            if (instance instanceof BeanNameAware) {
+                ((BeanNameAware)instance).setBeanName(beanName);
+            }
+
+            // 初始化
+            if (instance instanceof InitializingBean) {
+                try {
+                    ((InitializingBean)instance).afterPropertiesSet();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            // BeanPostProcessor
+
 
             return instance;
         } catch (InstantiationException e){
@@ -117,7 +134,7 @@ public class SimonApplicationContext {
                 return singleton_beans.get(beanName);
             } else {
                 // 创建一个原型bean
-                return createBean(beanDefinition);
+                return createBean(beanName,beanDefinition);
             }
         } else {
             throw new RuntimeException("没有找到对应的bean");
